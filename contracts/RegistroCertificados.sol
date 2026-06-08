@@ -121,8 +121,10 @@ contract RegistroCertificados {
             revert DatosVacios();
         }
 
+        // Usamos abi.encode (no encodePacked) para evitar colisiones de hash entre
+        // argumentos dinámicos adyacentes: encodePacked("AB","C") == encodePacked("A","BC").
         hashCertificado = keccak256(
-            abi.encodePacked(nombreEstudiante, curso, msg.sender, block.timestamp, nonce)
+            abi.encode(nombreEstudiante, curso, msg.sender, block.timestamp, nonce)
         );
         unchecked {
             nonce++;
