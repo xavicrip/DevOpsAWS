@@ -1,0 +1,76 @@
+name: DevSecOps — Seguridad Automatizada
+
+# Pipeline de seguridad: análisis estático del contrato (Slither), lint de seguridad
+# (Solhint) y auditoría de dependencias (npm audit). "Shift-left security": detectar
+# vulnerabilidades lo antes posible, dentro del propio pipeline.
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    # Auditoría semanal (lunes 06:00 UTC) para detectar CVEs nuevos en dependencias.
+    - cron: "0 6 * * 1"
+
+jobs:
+  slither:
+    name: Análisis estático (Slither)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar Slither
+        uses: crytic/slither-action@v0.4.0
+        with:
+          node-version: "20"
+          fail-on: high
+          slither-args: --filter-paths "node_modules"
+
+  dependencias:
+    name: Auditoría de dependencias (npm audit)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Auditar dependencias (falla solo en severidad alta)
+        run: npm audit --audit-level=high
+
+  solhint-seguridad:
+    name: Lint de seguridad (Solhint)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Solhint
+        run: npm run lint:sol
