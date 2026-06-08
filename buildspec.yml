@@ -1,0 +1,46 @@
+# buildspec.yml — instrucciones que ejecuta AWS CodeBuild dentro del pipeline.
+# Fases: instalar dependencias -> compilar -> probar -> (opcional) desplegar contrato.
+
+version: 0.2
+
+env:
+  variables:
+    NODE_ENV: "test"
+  # Secretos leídos de SSM Parameter Store (créalos según guias/05-despliegue-aws.md).
+  # Descomenta cuando quieras desplegar el contrato en Sepolia desde el pipeline.
+  # parameter-store:
+  #   SEPOLIA_RPC_URL: "/registro-certificados/SEPOLIA_RPC_URL"
+  #   PRIVATE_KEY: "/registro-certificados/PRIVATE_KEY"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - echo "Instalando dependencias..."
+      - npm ci
+
+  pre_build:
+    commands:
+      - echo "Lint de Solidity..."
+      - npm run lint:sol
+      - echo "Compilando el contrato..."
+      - npm run compile
+
+  build:
+    commands:
+      - echo "Ejecutando las pruebas..."
+      - npm test
+      # Despliegue automático del contrato (descomenta y configura los secretos):
+      # - echo "Desplegando en Sepolia..."
+      # - npm run deploy:sepolia
+
+  post_build:
+    commands:
+      - echo "Build completado el $(date)"
+
+artifacts:
+  # Publica el frontend (con deployment.json si se desplegó) como artefacto del pipeline.
+  files:
+    - "frontend/**/*"
+  discard-paths: no

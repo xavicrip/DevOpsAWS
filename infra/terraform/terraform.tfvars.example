@@ -1,0 +1,16 @@
+# Copia este archivo a terraform.tfvars y rellena tus valores.
+# terraform.tfvars está en .gitignore: contiene secretos, NUNCA lo subas.
+
+aws_region      = "us-east-1"
+entorno         = "dev"
+nombre_proyecto = "registro-certificados"
+
+# Tu repositorio en GitHub
+github_repo_url = "https://github.com/TU_USUARIO/TU_REPO"
+github_branch   = "main"
+
+# Personal Access Token de GitHub (Settings > Developer settings > Tokens)
+github_token = "ghp_xxxxxxxxxxxxxxxxxxxx"
+
+# Nodo RPC para desplegar el contrato en Sepolia desde CodeBuild (opcional)
+sepolia_rpc_url = "https://eth-sepolia.g.alchemy.com/v2/TU_API_KEY"
