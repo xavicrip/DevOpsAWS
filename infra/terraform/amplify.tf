@@ -21,7 +21,7 @@ resource "aws_amplify_app" "dapp" {
       phases:
         build:
           commands:
-            - echo "Sin compilacion: frontend estatico"
+            - echo "Frontend estatico - sin compilacion"
       artifacts:
         baseDirectory: frontend
         files:
