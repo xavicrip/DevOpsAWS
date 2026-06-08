@@ -3,6 +3,10 @@
 # a la rama configurada, con HTTPS y CDN global incluidos.
 
 resource "aws_amplify_app" "dapp" {
+  # Provider sin default_tags: evita amplify:TagResource (bloqueado por SCP en
+  # cuentas educativas). Ver el comentario en versions.tf.
+  provider = aws.sin_tags
+
   name       = "${var.nombre_proyecto}-${var.entorno}"
   repository = var.github_repo_url
 
@@ -37,6 +41,8 @@ resource "aws_amplify_app" "dapp" {
 }
 
 resource "aws_amplify_branch" "principal" {
+  provider = aws.sin_tags
+
   app_id      = aws_amplify_app.dapp.id
   branch_name = var.github_branch
 

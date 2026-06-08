@@ -32,3 +32,11 @@ provider "aws" {
     }
   }
 }
+
+# Provider alternativo SIN default_tags. Se usa solo para Amplify porque algunas
+# cuentas educativas/sandbox de AWS aplican un SCP que deniega amplify:TagResource,
+# lo que haría fallar la creación de la app si se intenta etiquetar.
+provider "aws" {
+  alias  = "sin_tags"
+  region = var.aws_region
+}
