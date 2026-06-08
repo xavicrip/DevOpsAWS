@@ -8,6 +8,10 @@ CI/CD nativo (CodePipeline + CodeBuild).
 > [`guias/05-despliegue-aws.md`](../../guias/05-despliegue-aws.md). Este documento es el
 > **porqué** y el **qué**; la guía es el **cómo**.
 
+> 📘 Para entender **cómo se eligieron los servicios de AWS**, comparar el **entorno local
+> vs. AWS** y los **dos pipelines** (GitHub Actions vs. AWS) con diagramas, lee
+> [`seleccion-servicios-y-pipelines.md`](seleccion-servicios-y-pipelines.md).
+
 ---
 
 ## 1. Visión general
