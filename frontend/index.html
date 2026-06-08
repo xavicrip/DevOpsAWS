@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro de Certificados Académicos · DApp</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>🎓 Registro de Certificados Académicos</h1>
+      <p class="sub">DApp educativa sobre Ethereum — UTPL · Blockchain DevOps</p>
+      <div id="estado-conexion" class="badge desconectado">Desconectado</div>
+      <button id="btn-conectar">🦊 Conectar MetaMask</button>
+      <div id="cuenta" class="mono"></div>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>Emitir certificado</h2>
+        <p class="ayuda">Solo emisores autorizados. Genera una transacción (cuesta gas).</p>
+        <input id="emitir-nombre" type="text" placeholder="Nombre del estudiante" />
+        <input id="emitir-curso" type="text" placeholder="Nombre del curso" />
+        <button id="btn-emitir">Emitir</button>
+        <div id="emitir-resultado" class="resultado"></div>
+      </section>
+
+      <section class="card">
+        <h2>Verificar certificado</h2>
+        <p class="ayuda">Público y gratuito. Pega el hash del certificado.</p>
+        <input id="verificar-hash" type="text" placeholder="0x..." class="mono" />
+        <button id="btn-verificar">Verificar</button>
+        <div id="verificar-resultado" class="resultado"></div>
+      </section>
+
+      <section class="card">
+        <h2>Revocar certificado</h2>
+        <p class="ayuda">Solo emisores autorizados. No borra: marca como revocado.</p>
+        <input id="revocar-hash" type="text" placeholder="0x..." class="mono" />
+        <button id="btn-revocar">Revocar</button>
+        <div id="revocar-resultado" class="resultado"></div>
+      </section>
+    </main>
+
+    <footer>
+      <span id="info-contrato" class="mono"></span>
+    </footer>
+
+    <!-- ethers.js v6 desde CDN (UMD) -->
+    <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.umd.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
