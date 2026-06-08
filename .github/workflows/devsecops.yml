@@ -53,8 +53,17 @@ jobs:
       - name: Instalar dependencias
         run: npm ci
 
-      - name: Auditar dependencias (falla solo en severidad alta)
-        run: npm audit --audit-level=high
+      # Informativo: muestra TODO el árbol (incluye devDependencies). No bloquea,
+      # porque las vulnerabilidades del toolchain (Hardhat, etc.) solo se corrigen con
+      # breaking changes y no forman parte de lo que se despliega.
+      - name: Auditoría completa (informativa)
+        run: npm audit
+        continue-on-error: true
+
+      # Gate real: audita solo las dependencias de PRODUCCIÓN, lo que realmente se
+      # despliega. Falla el pipeline si hay vulnerabilidades de severidad alta o superior.
+      - name: Auditar dependencias de producción (gate)
+        run: npm audit --omit=dev --audit-level=high
 
   solhint-seguridad:
     name: Lint de seguridad (Solhint)
