@@ -1,0 +1,33 @@
+# Dependencias
+node_modules/
+
+# Artefactos de Hardhat
+artifacts/
+cache/
+coverage/
+coverage.json
+typechain-types/
+
+# Variables de entorno y secretos (¡NUNCA subir!)
+.env
+.env.local
+*.pem
+*.key
+
+# Despliegue generado (se regenera con npm run deploy:local)
+frontend/deployment.json
+
+# Terraform
+infra/terraform/.terraform/
+infra/terraform/*.tfstate
+infra/terraform/*.tfstate.*
+infra/terraform/*.tfvars
+!infra/terraform/*.tfvars.example
+infra/terraform/.terraform.lock.hcl
+crash.log
+
+# Sistema operativo / editores
+.DS_Store
+.vscode/
+.idea/
+*.log

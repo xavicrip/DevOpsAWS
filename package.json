@@ -1,0 +1,28 @@
+{
+  "name": "registro-certificados-blockchain",
+  "version": "1.0.0",
+  "description": "DApp educativa de Registro de Certificados Académicos sobre Ethereum — Laboratorio DevOps/DevSecOps en la nube (AWS) · UTPL",
+  "license": "MIT",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "coverage": "hardhat coverage",
+    "node": "hardhat node",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "lint:sol": "solhint 'contracts/**/*.sol'",
+    "format": "prettier --write 'contracts/**/*.sol' 'frontend/**/*.{js,html,css}' 'scripts/**/*.js' 'test/**/*.js'",
+    "security:slither": "slither ."
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.0",
+    "prettier": "^3.3.0",
+    "prettier-plugin-solidity": "^1.4.0",
+    "solhint": "^5.0.0",
+    "solidity-coverage": "^0.8.12"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
